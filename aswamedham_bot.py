@@ -267,22 +267,6 @@ def get_scorecard_text(session: dict) -> str:
         )
     return txt
 
-# async def show_scoreboard(update: Update, context: ContextTypes.DEFAULT_TYPE):
-#     key = get_session_key(update)
-#     session = sessions.get(key)
-#     if not session:
-#         return
-
-#     q_left = max(0, MAX_QUESTIONS - session["questions_used"])
-#     g_left = max(0, session["guesses_left"])
-
-#     txt = (
-#         "📊 *Scoreboard:*\n"
-#         f"Questions left: *{q_left}*\n"
-#         f"Guesses left: *{g_left}*"
-#     )
-#     await update.message.reply_text(txt, parse_mode="Markdown", reply_markup=ReplyKeyboardRemove())
-
 async def scorecard(update: Update, context: ContextTypes.DEFAULT_TYPE):
     key = get_session_key(update)
     session = sessions.get(key)
