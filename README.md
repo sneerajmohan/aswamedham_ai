@@ -106,6 +106,6 @@ You can easily add more names to the list. Duplicates are removed automatically.
 
 This project is licensed under the MIT License.
 
-    Note: The Qwen 3:4b language model used in this project is provided by Alibaba Cloud and governed by its own Qianwen License 1.0. This repository does not include the model itself — only the interface code to run it via Ollama.
+Note: The Qwen 3:4b language model used in this project is provided by Alibaba Cloud and governed by its own Qianwen License 1.0. This repository does not include the model itself — only the interface code to run it via Ollama.
 
 The interface and bot code in this repository is © 2025 Neeraj Mohan Sushma and released under the MIT License for research and personal use.
