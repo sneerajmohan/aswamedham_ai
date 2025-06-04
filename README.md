@@ -29,7 +29,7 @@ pip3 install -r requirements.txt
 curl -fsSL https://ollama.com/install.sh | sh
 
 # Pull the Qwen 3:4b model
-ollama pull qwen:3.4b
+ollama pull qwen3:4b
 ```
 
 ### 3. Configuration
