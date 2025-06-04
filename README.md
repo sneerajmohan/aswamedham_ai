@@ -64,7 +64,7 @@ The AI will secretly pick a famous personality from the list.
 - Ask yes/no questions using **/ask** to narrow down the possibilities.
 
     Tip: Instead of vague questions like /ask he?, try more specific ones like /ask is the person male?
-    Only responses answered with Yes or No are counted. I'm not sure does not count against your question limit.
+    Only responses answered with Yes or No are counted. "I'm not sure" reply does not count against your question limit.
 
 - You can ask up to 10 questions per game.
 
