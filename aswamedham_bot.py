@@ -3,7 +3,7 @@ import random
 import requests
 import difflib
 import unicodedata
-from telegram import Update,ReplyKeyboardMarkup,ReplyKeyboardRemove, BotCommand
+from telegram import Update,ReplyKeyboardRemove, BotCommand
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 
 OLLAMA_MODEL = "qwen3:4b"
@@ -98,14 +98,6 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "game_over": False,
         "name_page": 0
     }
-
-    keyboard = [
-        ["/ask", "/guess"],
-        ["/history", "/summary"],
-        ["/namelist", "/next"],
-        ["/end", "/help"]
-    ]
-    reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
 
     intro_message = (
     "👋 Hi! I am Aswamedham bot powered by Qwen AI. My knowledge is up to date as of 2023.\n"
@@ -387,9 +379,13 @@ async def set_bot_commands(application):
 
 def main():
     BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN")
+    WEB_HOOK = os.environ.get("WEB_HOOK")  # e.g. https://yourapp.koyeb.app/{token}
+    PORT = int(os.environ.get("PORT", 8080))  # default port for services like Koyeb
     if not BOT_TOKEN:
         raise ValueError("⚠️ TELEGRAM_BOT_TOKEN environment variable not set.")
+
     app = ApplicationBuilder().token(BOT_TOKEN).build()
+    # Register command handlers
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("ask", ask))
     app.add_handler(CommandHandler("guess", guess))
@@ -401,8 +397,15 @@ def main():
     app.add_handler(CommandHandler("scorecard", scorecard))
     app.add_handler(CommandHandler("end", end))
     app.post_init = set_bot_commands
-    print("🤖 Telegram bot is running...")
-    app.run_polling()
-
+    if WEB_HOOK:
+        print(f"🔗 Starting bot using webhook at {WEB_HOOK}")
+        app.run_webhook(
+            listen="0.0.0.0",
+            port=PORT,
+            webhook_url=WEB_HOOK
+        )
+    else:
+        print("🤖 Starting bot using polling...")
+        app.run_polling()
 if __name__ == "__main__":
     main()
