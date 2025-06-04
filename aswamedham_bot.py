@@ -22,14 +22,14 @@ def normalize_name(name):
 def load_people():
     with open("people.txt", "r", encoding="utf-8") as f:
         names = [line.strip() for line in f if line.strip()]
-        names = set(names)
-        if len(names) < 100:
-            raise ValueError("⚠️ people.txt must contain at least 100 unique names.")
-        names = list(names)
+        names = list(set(names))
         return names
 
 FULL_PERSON_LIST = load_people()
-PERSON_LIST = sorted(random.sample(FULL_PERSON_LIST, 100))
+if len(FULL_PERSON_LIST) <= 100:
+    PERSON_LIST = sorted(FULL_PERSON_LIST)
+else:
+    PERSON_LIST = sorted(random.sample(FULL_PERSON_LIST, 100))
 sessions = {}
 
 def get_session_key(update: Update) -> int:
