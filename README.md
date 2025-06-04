@@ -34,6 +34,10 @@ ollama pull qwen:3.4b
 
 ### 3. Configuration
 
+To run the bot, you'll need a Telegram bot token.
+
+    If you don't have one yet, create a new bot by talking to @BotFather on Telegram. Use the /newbot command, follow the instructions, and copy the token provided.
+
 export your bot token:
 
 ```bash
