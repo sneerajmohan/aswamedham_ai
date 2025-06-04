@@ -8,19 +8,6 @@ A Telegram bot inspired by the popular quiz show *Aswamedham* hosted by Grandmas
 
 Aswamedham is a quiz game where one participant thinks of a famous personality, and the others try to guess who it is by asking yes/no questions. It gained widespread recognition in Kerala through the TV show hosted by Grandmaster G.S. Pradeep. This bot brings the same excitement to Telegram using an AI that answers your questions.
 
----
-
-## Features
-
-- A.I picks a from a list of a famous personalities (easily extendable).
-- Ask up to 10 yes/no questions to AI.
-- Up to 3 guesses per game.
-- A summary option to see the thinking process of AI.
-- Works in group chats (shared session) and private chats (per-user sessions).
-- No need to match accents or exact spellings – smart name normalization is supported.
-
----
-
 ## Local Setup (Tested on Linux and macOS)
 
 ### 1. Prerequisites
@@ -63,6 +50,25 @@ The bot will now be accessible via Telegram and ready to play!
 
 ---
 
+---
+
+## How to play
+
+- Use **/start** to begin a new game. 
+The AI will secretly pick a famous personality from the list.
+
+- Ask yes/no questions using **/ask** to narrow down the possibilities.
+
+    Tip: Instead of vague questions like /ask he?, try more specific ones like /ask is the person male?
+    Only responses answered with Yes or No are counted. I'm not sure does not count against your question limit.
+
+- You can ask up to 10 questions per game.
+
+- Make a guess anytime using /guess. You have up to 3 guesses.(The bot supports name normalization — no need to match spellings or accents exactly.)
+
+- Use /summary after the game ends to review AI’s full thought process.
+---
+
 ## Commands
 
 | Command       | Description |
@@ -74,7 +80,7 @@ The bot will now be accessible via Telegram and ready to play!
 | /next         | Next page of names |
 | /history      | View Q&A and guesses so far |
 | /scorecard    | Show remaining questions & guesses |
-| /summary      | View the final game log |
+| /summary      | View the A.I thinking process |
 | /end          | End the current game |
 | /help         | Show help message |
 
