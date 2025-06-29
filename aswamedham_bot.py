@@ -89,25 +89,32 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text("⚠️ A game is already running. Use /end to stop it before starting a new one.")
         return
 
-    person = random.choice(PERSON_LIST)
+    # Pick a new random 100-person list each time
+    if len(FULL_PERSON_LIST) <= 100:
+        current_person_list = sorted(FULL_PERSON_LIST)
+    else:
+        current_person_list = sorted(random.sample(FULL_PERSON_LIST, 100))
+
+    person = random.choice(current_person_list)
+
     sessions[key] = {
         "person": person,
         "questions_used": 0,
         "guesses_left": MAX_GUESSES,
         "log": [],
         "game_over": False,
-        "name_page": 0
+        "name_page": 0,
+        "person_list": current_person_list  # store this in session
     }
 
     intro_message = (
-    "👋 Hi! I am Aswamedham bot powered by Qwen AI. My knowledge is up to date as of 2023.\n"
-    "I've picked a famous person from the /namelist. Use /ask to ask a yes/no question, or /guess to make a guess.\n"
-    f"You have {MAX_QUESTIONS} questions and {MAX_GUESSES} guesses.\n\n"
-    "💡 You don't need to worry about accents or special characters — simplified English spellings are perfectly fine when guessing names!"
-)
+        "👋 Hi! I am Aswamedham bot powered by Qwen AI. My knowledge is up to date as of 2023.\n"
+        "I've picked a famous person from the /namelist. Use /ask to ask a yes/no question, or /guess to make a guess.\n"
+        f"You have {MAX_QUESTIONS} questions and {MAX_GUESSES} guesses.\n\n"
+        "💡 You don't need to worry about accents or special characters — simplified English spellings are perfectly fine when guessing names!"
+    )
+    await update.message.reply_text(intro_message)
 
-    await update.message.reply_text(
-        intro_message)
 
 async def ask(update: Update, context: ContextTypes.DEFAULT_TYPE):
     key = get_session_key(update)
@@ -167,9 +174,10 @@ async def guess(update: Update, context: ContextTypes.DEFAULT_TYPE):
     guess_normalized = normalize_name(guess)
     correct_person_normalized = normalize_name(session["person"])
     matched_person = None
+    person_list = session["person_list"]
 
     # Step 1: Try exact match with normalized names
-    for person in PERSON_LIST:
+    for person in person_list:
         if guess_normalized == normalize_name(person):
             matched_person = person
             break
@@ -193,15 +201,16 @@ async def guess(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return
 
     # Step 3: No exact match – try fuzzy match using normalized names
-    normalized_list = [normalize_name(p) for p in PERSON_LIST]
+    normalized_list = [normalize_name(p) for p in person_list]
     best_matches = difflib.get_close_matches(guess_normalized, normalized_list, n=1, cutoff=0.6)
 
     if best_matches:
         index = normalized_list.index(best_matches[0])
-        suggestion = PERSON_LIST[index]
+        suggestion = person_list[index]
         await update.message.reply_text(f"❓ Name not found. Did you mean: '{suggestion}'?\nUse /namelist to see all valid options.", reply_markup=ReplyKeyboardRemove())
     else:
         await update.message.reply_text("❓ Name not found. Please use /namelist to see valid choices.", reply_markup=ReplyKeyboardRemove())
+
 
 
 async def summary(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -276,16 +285,17 @@ async def namelist(update: Update, context: ContextTypes.DEFAULT_TYPE):
     session = sessions.setdefault(key, {"name_page": 0})
     session["name_page"] = 0
 
+    person_list = session.get("person_list", PERSON_LIST)
+
     start = 0
     end = NAME_PAGE_SIZE
-    chunk = PERSON_LIST[start:end]
+    chunk = person_list[start:end]
     name_block = "\n".join(f"- {name}" for name in chunk)
 
-    remaining = max(0, len(PERSON_LIST) - end)
+    remaining = max(0, len(person_list) - end)
     note = f"\n\nTo see the next {min(remaining, NAME_PAGE_SIZE)} names, type /next." if remaining > 0 else ""
 
-    await update.message.reply_text(f"🧾 Names (1–{min(end, len(PERSON_LIST))}):\n{name_block}{note}",reply_markup=ReplyKeyboardRemove())
-
+    await update.message.reply_text(f"🧾 Names (1–{min(end, len(person_list))}):\n{name_block}{note}", reply_markup=ReplyKeyboardRemove())
 
 async def next_names(update: Update, context: ContextTypes.DEFAULT_TYPE):
     key = get_session_key(update)
@@ -297,14 +307,19 @@ async def next_names(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await send_name_page(update, session["name_page"])
 
 async def send_name_page(update: Update, page: int):
+    key = get_session_key(update)
+    session = sessions.get(key)
+    person_list = session.get("person_list", PERSON_LIST)
+
     start = page * NAME_PAGE_SIZE
     end = start + NAME_PAGE_SIZE
-    if start >= len(PERSON_LIST):
-        await update.message.reply_text("🚫 No more names. Use /namelist to restart.",reply_markup=ReplyKeyboardRemove())
+    if start >= len(person_list):
+        await update.message.reply_text("🚫 No more names. Use /namelist to restart.", reply_markup=ReplyKeyboardRemove())
         return
-    chunk = PERSON_LIST[start:end]
+    chunk = person_list[start:end]
     name_block = "\n".join(f"- {name}" for name in chunk)
-    await update.message.reply_text(f"🧾 Names ({start + 1}-{min(end, len(PERSON_LIST))}):\n{name_block}",reply_markup=ReplyKeyboardRemove())
+    await update.message.reply_text(f"🧾 Names ({start + 1}-{min(end, len(person_list))}):\n{name_block}", reply_markup=ReplyKeyboardRemove())
+
 
 async def history(update: Update, context: ContextTypes.DEFAULT_TYPE):
     key = get_session_key(update)
