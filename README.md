@@ -92,7 +92,7 @@ The AI will secretly pick a famous personality from the list.
 
 ## Data
 
-- The list of people is stored in `people.txt`. Currently includes ~152 popular names.
+- The list of people is stored in `people.txt`. Currently includes ~300 popular names.
 - At the start of each game, 100 names are randomly selected for that session.
 
 You can easily add more names to the list. Duplicates are removed automatically.

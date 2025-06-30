@@ -98,7 +98,6 @@ Katherine Johnson
 Oprah Winfrey
 Frida Kahlo
 Stephen Colbert
-Leonardo da Vinci
 Nelson Rockefeller
 William Shakespeare
 Charles Dickens
@@ -201,3 +200,101 @@ Muhammad Ali
 Jesse Owens
 Babe Didrikson Zaharias
 Mia Hamm
+John Lenon
+Oscar Wilde
+Christopher Columbus
+Srinivasa Ramanujan
+G. H. Hardy
+John Keats
+William Wordsworth
+Walt Disney
+Otto von Bismarck
+Joseph Stalin
+Adolf Hitler
+Ho Chi Minh
+Benito Mussolini
+Mao Zedong
+Muammar Gaddafi
+António Guterres
+Ban Ki-moon
+Kofi Annan
+Copernicus
+Johannes Kepler
+Louis Pasteur
+Alexander Fleming
+Jonas Salk
+Francis Crick
+James Watson
+Rosalind Franklin
+Barbara McClintock
+Dorothy Hodgkin
+Linus Pauling
+Max Planck
+Niels Bohr
+Werner Heisenberg
+Erwin Schrödinger
+Richard Feynman
+Alan Turing
+John von Neumann
+Claude Shannon
+Grace Hopper
+Katherine Johnson
+Mae Jemison
+Sally Ride
+Christa McAuliffe
+Mary Curie
+Pierre Curie
+Antoine Lavoisier
+Dmitri Mendeleev
+Michelangelo
+Raphael
+Donatello
+Caravaggio
+Rembrandt
+Johannes Vermeer
+Claude Monet
+Pierre-Auguste Renoir
+Edgar Degas
+Paul Cézanne
+Henri Matisse
+Salvador Dalí
+Georgia O'Keeffe
+Jackson Pollock
+Andy Warhol
+Jean-Michel Basquiat
+Banksy
+Kehinde Wiley
+Yayoi Kusama
+David Hockney
+Johann Sebastian Bach
+Ludwig van Beethoven
+Franz Schubert
+Frédéric Chopin
+Giuseppe Verdi
+Richard Wagner
+Pyotr Ilyich Tchaikovsky
+Igor Stravinsky
+George Gershwin
+Duke Ellington
+Louis Armstrong
+Miles Davis
+John Coltrane
+Charlie Parker
+Billie Holiday
+Ella Fitzgerald
+Frank Sinatra
+Elvis Presley
+John Lennon
+Paul McCartney
+George Harrison
+Ringo Starr
+Bob Dylan
+Marilyn Monroe
+Clint Eastwood
+Voltaire
+Henry Ford
+Robert Browning
+Marco Polo
+Dalai Lama
+Jack Ma
+Larry Page
